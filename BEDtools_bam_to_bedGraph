@@ -1,0 +1,14 @@
+################# Install BEDtools #####################################
+cd /N/slate/xuexiao/
+mkdir BEDtools && cd BEDtools
+wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/bedtools/BEDTools.v2.17.0.tar.gz
+tar zxvf BEDTools.v2.17.0.tar.gz
+cd bedtools-2.17.0
+make
+
+################ Run genomeCoverageBed ############################################
+export PATH=$PATH:/N/slate/xuexiao/BEDtools/bedtools-2.17.0/bin/
+
+cd /N/slate/xuexiao/CREB1_ChIP/Align
+genomeCoverageBed -ibam OVCAR3_CREB1_bowtie2_rmdup.bam -bg > OVCAR3_CREB1_bowtie2_rmdup.bedGraph
+genomeCoverageBed -ibam OVCAR3_IgG_bowtie2_rmdup.bam -bg > OVCAR3_IgG_bowtie2_rmdup.bedGraph

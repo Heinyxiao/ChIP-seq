@@ -1,0 +1,7 @@
+cd /N/slate/xuexiao/CREB1_ChIP/Align
+source ~/.bashrc
+samtools rmdup OVCAR3_CREB1_bowtie2.sorted.bam OVCAR3_CREB1_bowtie2_rmdup.bam
+samtools rmdup OVCAR3_IgG_bowtie2.sorted.bam OVCAR3_IgG_bowtie2_rmdup.bam
+
+samtools rmdup OVCAR3_CREB1_combinedAligned.sortedByCoord.out.bam OVCAR3_CREB1_STAR_rmdup.bam
+samtools rmdup OVCAR3_IgG_combinedAligned.sortedByCoord.out.bam OVCAR3_IgG_STAR_rmdup.bam

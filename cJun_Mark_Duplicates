@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -J CREB1_cJun
+#SBATCH -p general
+#SBATCH -e CREB1_cJun_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=20:00:00
+
+cd /N/slate/xuexiao/cJun_ChIP/Align
+
+################################### Remove Duplicates #####################################################
+java -jar /N/slate/xuexiao/Picard/picard.jar MarkDuplicates I=Ctrol_H3K9_S1_bowtie2_sorted.bam O=Ctrol_H3K9_S1_marked_duplicates.bam M=Ctrol_H3K9_S1_marked_dup_metrics.txt REMOVE_DUPLICATES=true
+java -jar /N/slate/xuexiao/Picard/picard.jar MarkDuplicates I=OV3_H3K9_S2_bowtie2_sorted.bam O=OV3_H3K9_S2_marked_duplicates.bam M=OV3_H3K9_S2_marked_dup_metrics.txt REMOVE_DUPLICATES=true
+java -jar /N/slate/xuexiao/Picard/picard.jar MarkDuplicates I=OV3_IgG_S3_bowtie2_sorted.bam O=OV3_IgG_S3_marked_duplicates.bam M=OV3_IgG_S3_marked_dup_metrics.txt REMOVE_DUPLICATES=true
+java -jar /N/slate/xuexiao/Picard/picard.jar MarkDuplicates I=OV3_cJun_S4_bowtie2_sorted.bam O=OV3_cJun_S4_marked_duplicates.bam M=OV3_cJun_S4_marked_dup_metrics.txt REMOVE_DUPLICATES=true
+java -jar /N/slate/xuexiao/Picard/picard.jar MarkDuplicates I=OV3_CREB_S5_bowtie2_sorted.bam O=OV3_CREB_S5_marked_duplicates.bam M=OV3_CREB_S5_marked_dup_metrics.txt REMOVE_DUPLICATES=true
+java -jar /N/slate/xuexiao/Picard/picard.jar MarkDuplicates I=OV3_Input_S6_bowtie2_sorted.bam O=OV3_Input_S6_marked_duplicates.bam M=OV3_Input_S6_marked_dup_metrics.txt REMOVE_DUPLICATES=true

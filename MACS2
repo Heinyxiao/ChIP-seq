@@ -1,0 +1,59 @@
+module unload python
+module load python
+module load anaconda/python3.7/2019.03
+export LC_ALL=en_US.utf-8
+export LANG=en_US.utf-8
+cd /N/slate/xuexiao/MACS2
+conda update -y -p /N/slate/xuexiao/velocyto/velocyto numpy
+source activate velocyto
+pip install MACS2
+macs2 callpeak -h
+pip install hdbscan --no-cache-dir --no-binary :all:
+macs2 callpeak -t /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_CREB1_combinedAligned.sortedByCoord.out.bam -c /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_IgG_combinedAligned.sortedByCoord.out.bam -f BAM -g hs -n CREB1 --outdir /N/slate/xuexiao/CREB1_ChIP/peaks -B
+macs2 bdgcmp -t /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_treat_pileup.bdg -c /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_control_lambda.bdg -o /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_cmp.bdg -m FE
+macs2 bdgcmp -t /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_treat_pileup.bdg -c /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_control_lambda.bdg -o /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_cmp_logLR.bdg -m logLR -p 0.00001
+conda install -y -p /N/slate/xuexiao/velocyto/velocyto -c bioconda ucsc-bedgraphtobigwig
+conda install -y -p /N/slate/xuexiao/velocyto/velocyto -c bioconda ucsc-bedclip
+conda install -y -p /N/slate/xuexiao/velocyto/velocyto -c bioconda ucsc-bedtools
+wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig
+wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
+chmod +x bedGraphToBigWig
+chmod +x fetchChromSizes
+./bedGraphToBigWig
+./fetchChromSizes
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes
+wget https://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/chromToUcsc
+chmod a+x chromToUcsc
+./chromToUcsc -g hg38 --get
+./chromToUcsc -i CREB1_cmp_FE.bdg -o CREB1_cmp_FE_ucsc.bdg -a hg38.chromAlias.tsv
+sed -n '76, 78'p CREB1_cmp_FE_ucsc.bdg
+LC_COLLATE=C sort -k1,1 -k2,2n CREB1_cmp_FE_ucsc.bdg > CREB1_cmp_FE_ucsc_sorted.bdg
+./bedGraphToBigWig CREB1_cmp_FE_ucsc_sorted.bdg hg38.chrom.sizes.1 CREB1_BigWig.bw
+
+./chromToUcsc -i CREB1_cmp_logLR.bdg -o CREB1_cmp_logLR_ucsc.bdg -a hg38.chromAlias.tsv
+sed -n '76, 78'p CREB1_cmp_logLR_ucsc.bdg
+LC_COLLATE=C sort -k1,1 -k2,2n CREB1_cmp_logLR_ucsc.bdg > CREB1_cmp_logLR_ucsc_sorted.bdg
+./bedGraphToBigWig CREB1_cmp_logLR_ucsc_sorted.bdg hg38.chrom.sizes.1 CREB1_logLR_BigWig.bw
+
+conda install wget r-essentials bioconductor-deseq2 bioconductor-edger
+conda install bioconda samtools
+cd /N/slate/xuexiao/HOMER
+wget http://homer.ucsd.edu/homer/configureHomer.pl
+perl configureHomer.pl -install
+PATH=$PATH:/N/slate/xuexiao/HOMER/bin/
+source ~/.bash_profile
+annotatePeaks.pl /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_SEACR.stringent.bed hg38 > /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_SEACR.stringent.annotated.bed
+
+perl /N/slate/xuexiao/HOMER/.//configureHomer.pl install hg38
+
+bedtools genomecov -ibam /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_CREB1_bowtie2.sorted.bam -bg | sort -k1,1 -k2,2n > /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_CREB1_bowtie2.sorted.bedGraph
+bedtools genomecov -ibam /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_IgG_bowtie2.sorted.bam -bg | sort -k1,1 -k2,2n > /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_IgG_bowtie2.sorted.bedGraph
+bedtools genomecov -ibam /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_Input_bowtie2_sorted.bam -bg | sort -k1,1 -k2,2n > /N/slate/xuexiao/CREB1_ChIP/Align/OVCAR3_Input_bowtie2_sorted.bedGraph
+
+######################## Add Chr to bed files #############################
+sed 's/^/chr/' /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_bowtie2_MACS2_summits.bed > /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_bowtie2_MACS2_summits_new.bed
+sed 's/^/chr/' /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_Bowtie2_SEACR.stringent.bed > /N/slate/xuexiao/CREB1_ChIP/peaks/new_CREB1_vs_IgG_Bowtie2_SEACR.stringent.bed
+sed 's/^/chr/' /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_STAR_SEACR.stringent.bed > /N/slate/xuexiao/CREB1_ChIP/peaks/new_CREB1_vs_IgG_STAR_SEACR.stringent.bed
+sed 's/^/chr/' /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_Input_bowtie2_MACS2_summits.bed > /N/slate/xuexiao/CREB1_ChIP/peaks/new_CREB1_vs_Input_bowtie2_MACS2_summits.bed
+sed 's/^/chr/' /N/slate/xuexiao/CREB1_ChIP/peaks/CREB1_vs_IgG_STAR_MACS2_summits.bed > /N/slate/xuexiao/CREB1_ChIP/peaks/new_CREB1_vs_IgG_STAR_MACS2_summits.bed
+

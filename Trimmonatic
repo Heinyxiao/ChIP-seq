@@ -1,0 +1,258 @@
+#!/bin/bash
+#SBATCH -J Trim_Kura
+#SBATCH -p general
+#SBATCH -o Trim_Kura_%j.txt
+#SBATCH -e Trim_Kura_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --time=120:00:00
+#SBATCH --mem=100G
+
+module unload python
+module load python
+export LC_ALL=en_US.utf-8
+export LANG=en_US.utf-8
+source activate velocyto
+
+cd /N/slate/xuexiao/cJun_CREB1_ChIP/Raw
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Control-DNA-IP-H3K9_S26_R1_001.fastq.gz \
+GSF2943-CutandRun-Control-DNA-IP-H3K9_S26_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Ctrl_H3K9_S26_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Ctrl_H3K9_S26_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Ctrl_H3K9_S26_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Ctrl_H3K9_S26_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-3D-Input_S18_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-3D-Input_S18_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_Input_S18_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_Input_S18_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_Input_S18_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_Input_S18_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-3D-IP-cJun_S16_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-3D-IP-cJun_S16_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_cJun_S16_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_cJun_S16_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_cJun_S16_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_cJun_S16_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-3D-IP-H3K9_S15_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-3D-IP-H3K9_S15_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_H3K9_S15_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_H3K9_S15_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_H3K9_S15_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_H3K9_S15_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-3D-IP-IgG_S17_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-3D-IP-IgG_S17_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_IgG_S17_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_IgG_S17_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_IgG_S17_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/Kura3D_IgG_S17_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-control-Input_S14_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-control-Input_S14_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_Input_S14_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_Input_S14_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_Input_S14_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_Input_S14_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-control-IP-cJun_S12_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-control-IP-cJun_S12_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_cJun_S12_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_cJun_S12_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_cJun_S12_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_cJun_S12_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-control-IP-H3K9_S11_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-control-IP-H3K9_S11_R1_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_H3K9_S11_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_H3K9_S11_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_H3K9_S11_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_H3K9_S11_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-Kuramochi-control-IP-IgG_S13_R1_001.fastq.gz \
+GSF2943-CutandRun-Kuramochi-control-IP-IgG_S13_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_IgG_S13_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_IgG_S13_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_IgG_S13_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/KuraCtrl_IgG_S13_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+################################ OV3 #################################
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-3D-Input_S25_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-3D-Input_S25_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_Input_S25_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_Input_S25_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_Input_S25_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_Input_S25_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-3D-IP-cJun_S23_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-3D-IP-cJun_S23_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_cJun_S23_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_cJun_S23_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_cJun_S23_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_cJun_S23_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-3D-IP-IgG_S24_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-3D-IP-IgG_S24_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_IgG_S24_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_IgG_S24_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_IgG_S24_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV33D_IgG_S24_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-control-Input_S22_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-control-Input_S22_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_Input_S22_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_Input_S22_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_Input_S22_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_Input_S22_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-control-IP-cJun_S20_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-control-IP-cJun_S20_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_cJun_S20_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_cJun_S20_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_cJun_S20_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_cJun_S20_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-control-IP-H3K9_S19_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-control-IP-H3K9_S19_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_H3K9_S19_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_H3K9_S19_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_H3K9_S19_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_H3K9_S19_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-CutandRun-OVCAR3-control-IP-IgG_S21_R1_001.fastq.gz \
+GSF2943-CutandRun-OVCAR3-control-IP-IgG_S21_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_IgG_S21_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_IgG_S21_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_IgG_S21_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3Ctrl_IgG_S21_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+
+################################ RNAseq ################################################
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-AM_S8_R1_001.fastq.gz \
+GSF2943-mRNAseq-AM_S8_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AM_S8_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AM_S8_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AM_S8_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AM_S8_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-AS_S7_R1_001.fastq.gz \
+GSF2943-mRNAseq-AS_S7_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AS_S7_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AS_S7_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AS_S7_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/AS_S7_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-BD_S10_R1_001.fastq.gz \
+GSF2943-mRNAseq-BD_S10_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BD_S10_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BD_S10_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BD_S10_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BD_S10_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-BN_S9_R1_001.fastq.gz \
+GSF2943-mRNAseq-BN_S9_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BN_S9_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BN_S9_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BN_S9_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/BN_S9_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-OV3-CREB1-KD-1_S4_R1_001.fastq.gz \
+GSF2943-mRNAseq-OV3-CREB1-KD-1_S4_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_1_S4_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_1_S4_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_1_S4_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_1_S4_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-OV3-CREB1-KD-2_S5_R1_001.fastq.gz \
+GSF2943-mRNAseq-OV3-CREB1-KD-2_S5_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_2_S5_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_2_S5_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_2_S5_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_2_S5_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-OV3-CREB1-KD-3_S6_R1_001.fastq.gz \
+GSF2943-mRNAseq-OV3-CREB1-KD-3_S6_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_3_S6_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_3_S6_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_3_S6_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_CREB1KD_3_S6_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-OV3-scr-1_S1_R1_001.fastq.gz \
+GSF2943-mRNAseq-OV3-scr-1_S1_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_1_S1_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_1_S1_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_1_S1_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_1_S1_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-OV3-scr-2_S2_R1_001.fastq.gz \
+GSF2943-mRNAseq-OV3-scr-2_S2_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_2_S2_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_2_S2_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_2_S2_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_2_S2_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+java -jar /N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 \
+GSF2943-mRNAseq-OV3-scr-3_S3_R1_001.fastq.gz \
+GSF2943-mRNAseq-OV3-scr-3_S3_R2_001.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_3_S3_R1_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_3_S3_R1_trim_unpaired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_3_S3_R2_trim_paired.fastq.gz \
+/N/slate/xuexiao/cJun_CREB1_ChIP/Clean/OV3_scr_3_S3_R2_trim_unpaired.fastq.gz \
+ILLUMINACLIP:/N/slate/xuexiao/Trimmomatic/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+

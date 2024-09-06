@@ -1,0 +1,39 @@
+#!/bin/bash
+#SBATCH -J CREB1_cJun
+#SBATCH -p general
+#SBATCH -e CREB1_cJun_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=20:00:00
+
+cd /N/slate/xuexiao/cJun_ChIP/Align
+source ~/.bashrc
+
+samtools view -b -f 4 Ctrol_H3K9_S1_bowtie2.bam > Ctrol_H3K9_S1_unmapped.bam
+samtools view -b -f 4 OV3_H3K9_S2_bowtie2.bam > OV3_H3K9_S2_unmapped.bam
+samtools view -b -f 4 OV3_IgG_S3_bowtie2.bam > OV3_IgG_S3_unmapped.bam
+samtools view -b -f 4 OV3_cJun_S4_bowtie2.bam > OV3_cJun_S4_unmapped.bam
+samtools view -b -f 4 OV3_CREB_S5_bowtie2.bam > OV3_CREB_S5_unmapped.bam
+samtools view -b -f 4 OV3_Input_S6_bowtie2.bam > OV3_Input_S6_unmapped.bam
+samtools fasta Ctrol_H3K9_S1_unmapped.bam > Ctrol_H3K9_S1_unmapped.fasta
+samtools fasta OV3_H3K9_S2_bowtie2.bam > OV3_H3K9_S2_unmapped.fasta
+
+
+samtools fasta OV3_cJun_S4_unmapped.bam > OV3_cJun_S4_unmapped.fasta
+samtools fasta OV3_CREB_S5_bowtie2.bam > OV3_CREB_S5_unmapped.fasta
+
+
+head -5000 OV3_cJun_S4_unmapped.fasta > Top2000_OV3_cJun_S4_unmapped.fasta
+head -5000 Ctrol_H3K9_S1_unmapped.fasta > Top2000_Ctrol_H3K9_S1_unmapped.fasta
+head -5000 OV3_H3K9_S2_unmapped.fasta > Top2000_OV3_H3K9_S2_unmapped.fasta
+
+samtools view -b -f 4 Kura3D_cJun_S16_bowtie2.bam  > Kura3D_cJun_S16_unmapped.bam
+samtools view -b -f 4 KuraCtrl_H3K9_S11_bowtie2.bam  > KuraCtrl_H3K9_S11_unmapped.bam
+
+samtools fasta Kura3D_cJun_S16_unmapped.bam > Kura3D_cJun_S16_unmapped.fasta
+samtools fasta KuraCtrl_H3K9_S11_unmapped.bam > KuraCtrl_H3K9_S11_unmapped.fasta
+
+head -5000 Kura3D_cJun_S16_unmapped.fasta > Top5000_Kura3D_cJun_S16_unmapped.fasta
+head -5000 KuraCtrl_H3K9_S11_unmapped.fasta > Top5000_KuraCtrl_H3K9_S11_unmapped.fasta

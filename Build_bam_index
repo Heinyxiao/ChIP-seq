@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH -J BAM_index
+#SBATCH -p general
+#SBATCH -o BAM_index_%j.txt
+#SBATCH -e BAM_index_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --time=2:00:00
+
+export PATH="/N/slate/xuexiao/velocyto/velocyto/bin:$PATH"
+
+module unload python
+module load python
+export LC_ALL=en_US.utf-8
+export LANG=en_US.utf-8
+source activate velocyto
+
+cd /N/slate/xuexiao/cJun_CREB1_ChIP/Align
+source ~/.bashrc
+
+samtools index OV3_CREB1KD_1_S4_MatchNmin20_Aligned.sortedByCoord.out.bam OV3_CREB1KD_1_S4_MatchNmin20_Aligned.sortedByCoord.out.bai
+samtools index OV3_CREB1KD_2_S5_MatchNmin20_Aligned.sortedByCoord.out.bam OV3_CREB1KD_2_S5_MatchNmin20_Aligned.sortedByCoord.out.bai
+samtools index OV3_CREB1KD_3_S6_MatchNmin20_Aligned.sortedByCoord.out.bam OV3_CREB1KD_3_S6_MatchNmin20_Aligned.sortedByCoord.out.bai
+samtools index OV3_scr_1_S1_MatchNmin20_Aligned.sortedByCoord.out.bam OV3_scr_1_S1_MatchNmin20_Aligned.sortedByCoord.out.bai
+samtools index OV3_scr_2_S2_MatchNmin20_Aligned.sortedByCoord.out.bam OV3_scr_2_S2_MatchNmin20_Aligned.sortedByCoord.out.bai
+samtools index OV3_scr_3_S3_MatchNmin20_Aligned.sortedByCoord.out.bam OV3_scr_3_S3_MatchNmin20_Aligned.sortedByCoord.out.bai
+
+
+source deactivate
+
+

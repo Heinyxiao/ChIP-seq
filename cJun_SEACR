@@ -1,0 +1,34 @@
+#!/bin/bash
+#SBATCH -J SEACR
+#SBATCH -p general
+#SBATCH -e cJun_SEACR_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=40:00:00
+module load r
+export PATH=$PATH:/N/slate/xuexiao/BEDtools/bedtools-2.17.0/bin/
+
+cd /N/slate/xuexiao/cJun_CREB1_ChIP/Peaks
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_cJun_S16.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_Input_S18.bedGraph non stringent Kura3D_cJun_vs_Input
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_cJun_S16.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_IgG_S17.bedGraph non stringent Kura3D_cJun_vs_IgG
+
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_cJun_S12.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_Input_S14.bedGraph non stringent KuraCtrl_cJun_vs_Input
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_cJun_S12.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_IgG_S13.bedGraph non stringent KuraCtrl_cJun_vs_IgG
+
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_cJun_S23.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_Input_S25.bedGraph non stringent OV33D_cJun_vs_Input
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_cJun_S23.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_IgG_S24.bedGraph non stringent OV33D_cJun_vs_IgG
+
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_cJun_S20.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_Input_S22.bedGraph non stringent OV3Ctrl_cJun_vs_Input
+
+bash /N/slate/xuexiao/SEACR/SEACR-1.3/SEACR_1.3.sh /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_cJun_S20.bedGraph /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_IgG_S21.bedGraph non stringent OV3Ctrl_cJun_vs_IgG
+
+

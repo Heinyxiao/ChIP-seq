@@ -1,0 +1,47 @@
+#!/bin/bash
+#SBATCH -J genomeCoverageBed
+#SBATCH -p general
+#SBATCH -o bedGraph_%j.txt
+#SBATCH -e bedGraph_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --time=30:00:00
+
+cd /N/slate/xuexiao/cJun_CREB1_ChIP/Align
+export PATH=$PATH:/N/slate/xuexiao/BEDtools/bedtools-2.17.0/bin/
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Ctrl_H3K9_S26_marked_duplicates.bam -bg -scale 0.0484 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Ctrl_H3K9_S26.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_cJun_S16_marked_duplicates.bam -bg -scale 0.0201 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_cJun_S16.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_H3K9_S15_marked_duplicates.bam -bg -scale 0.0559 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_H3K9_S15.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_IgG_S17_marked_duplicates.bam -bg -scale 0.0474 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_IgG_S17.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_Input_S18_marked_duplicates.bam -bg -scale 0.2781 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/Kura3D_Input_S18.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_cJun_S12_marked_duplicates.bam -bg -scale 0.0575 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_cJun_S12.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_H3K9_S11_marked_duplicates.bam -bg -scale 17.9856 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_H3K9_S11.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_IgG_S13_marked_duplicates.bam -bg -scale 0.0657 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_IgG_S13.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_Input_S14_marked_duplicates.bam -bg -scale 0.2338 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/KuraCtrl_Input_S14.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_cJun_S23_marked_duplicates.bam -bg -scale 4.1771 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_cJun_S23.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_IgG_S24_marked_duplicates.bam -bg -scale 0.2381 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_IgG_S24.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_Input_S25_marked_duplicates.bam -bg -scale 0.1611 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV33D_Input_S25.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_cJun_S20_marked_duplicates.bam -bg -scale 1.3947 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_cJun_S20.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_H3K9_S19_marked_duplicates.bam -bg -scale 0.7863 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_H3K9_S19.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_IgG_S21_marked_duplicates.bam -bg -scale 0.6026 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_IgG_S21.bedGraph
+
+genomeCoverageBed -ibam /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_Input_S22_marked_duplicates.bam -bg -scale 0.2114 > /N/slate/xuexiao/cJun_CREB1_ChIP/Align/OV3Ctrl_Input_S22.bedGraph
+
+

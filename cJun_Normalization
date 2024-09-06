@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH -J CREB1_cJun
+#SBATCH -p general
+#SBATCH -e CREB1_cJun_%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=xuexiao@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=20:00:00
+
+####################### Generate bedGraph files for SEACR peak calling ##############################
+
+cd /N/slate/xuexiao/cJun_ChIP/Align
+export PATH=$PATH:/N/slate/xuexiao/BEDtools/bedtools-2.17.0/bin/
+
+bedtools genomecov -ibam /N/slate/xuexiao/cJun_ChIP/Align/OV3_cJun_S4_marked_duplicates.bam -bg -scale 4.991614088 -g N/slate/xuexiao/Genome/GRCh38/Genome_size/hg38.chrom.sizes > /N/slate/xuexiao/cJun_ChIP/Align/OV3_cJun_S4.bedGraph
+
+bedtools genomecov -ibam /N/slate/xuexiao/cJun_ChIP/Align/OV3_CREB_S5_marked_duplicates.bam -bg -scale 3.042037922 -g N/slate/xuexiao/Genome/GRCh38/Genome_size/hg38.chrom.sizes > /N/slate/xuexiao/cJun_ChIP/Align/OV3_CREB_S5.bedGraph
+
+bedtools genomecov -ibam /N/slate/xuexiao/cJun_ChIP/Align/OV3_Input_S6_marked_duplicates.bam -bg -scale 29.49504483 -g N/slate/xuexiao/Genome/GRCh38/Genome_size/hg38.chrom.sizes > /N/slate/xuexiao/cJun_ChIP/Align/OV3_Input_S6.bedGraph
